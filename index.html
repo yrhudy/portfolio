@@ -3,1149 +3,1928 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rhudy Hariel Yocka | Architecte d'Infrastructures Numériques</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Portfolio de Rhudy Hariel Yocka, spécialiste réseaux et systèmes à Brazzaville: Wi-Fi professionnel, Windows Server, Active Directory, VoIP, CCTV et infrastructure fiable.">
+    <meta name="theme-color" content="#0d1117">
+    <meta property="og:title" content="Rhudy Hariel Yocka | Réseaux, systèmes et infrastructure">
+    <meta property="og:description" content="Administration réseau, Windows Server, Active Directory, Wi-Fi professionnel, VoIP et sécurité opérationnelle à Brazzaville.">
+    <meta property="og:image" content="project-cover.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Rhudy Hariel Yocka | Réseaux, systèmes et infrastructure</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        bg: '#0a0a0b',
-                        surface: '#141416',
-                        card: '#1a1a1e',
-                        border: '#2a2a30',
-                        fg: '#f0f0f2',
-                        muted: '#8a8a92',
-                        accent: '#c9a66b',
-                        accentLight: '#ddbf8a',
-                        network: '#4a7c6f'
-                    },
-                    fontFamily: {
-                        display: ['Space Grotesk', 'sans-serif'],
-                        body: ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg: #09101a;
+            --panel: rgba(13, 19, 31, 0.82);
+            --panel-strong: rgba(18, 27, 43, 0.94);
+            --text: #edf3ff;
+            --muted: #9aa8c2;
+            --line: rgba(186, 207, 255, 0.12);
+            --accent: #f2b95f;
+            --accent-strong: #ffcf7f;
+            --secondary: #6fd1c2;
+            --success: #8ae6a3;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+            --radius: 24px;
+            --radius-sm: 16px;
+            --max-width: 1180px;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0a0b;
-            color: #f0f0f2;
+            margin: 0;
+            font-family: "Manrope", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(111, 209, 194, 0.16), transparent 32%),
+                radial-gradient(circle at 85% 12%, rgba(242, 185, 95, 0.18), transparent 28%),
+                linear-gradient(180deg, #07101a 0%, #0d1523 48%, #0a111c 100%);
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        .font-display {
-            font-family: 'Space Grotesk', sans-serif;
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+        button, input, textarea { font: inherit; }
+
+        .skip-link {
+            position: absolute;
+            left: 1rem;
+            top: -3rem;
+            z-index: 200;
+            background: var(--accent);
+            color: #08101b;
+            padding: 0.85rem 1.1rem;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: top 0.2s ease;
         }
 
-        /* Network Background Canvas */
+        .skip-link:focus { top: 1rem; }
+
+        .site-shell {
+            position: relative;
+            isolation: isolate;
+        }
+
+        .site-shell::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(circle at center, black 55%, transparent 100%);
+            pointer-events: none;
+        }
+
         #network-bg {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            opacity: 0.4;
+            z-index: -1;
+            opacity: 0.55;
+            pointer-events: none;
         }
 
-        /* Scroll reveal animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .container {
+            width: min(calc(100% - 2rem), var(--max-width));
+            margin: 0 auto;
         }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .section { padding: 6rem 0; }
+        .section-header { display: grid; gap: 1rem; margin-bottom: 2.5rem; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.78rem;
+            font-weight: 800;
         }
 
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-
-        /* Stagger children */
-        .stagger-reveal > * {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        .eyebrow::before {
+            content: "";
+            width: 3rem;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent), transparent);
         }
 
-        .stagger-reveal.visible > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
-        .stagger-reveal.visible > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
-        .stagger-reveal.visible > *:nth-child(3) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
-        .stagger-reveal.visible > *:nth-child(4) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
-        .stagger-reveal.visible > *:nth-child(5) { transition-delay: 0.25s; opacity: 1; transform: translateY(0); }
-        .stagger-reveal.visible > *:nth-child(6) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
-
-        /* Hero text animation */
-        .hero-line {
-            overflow: hidden;
+        h1, h2, h3 {
+            margin: 0;
+            font-family: "Sora", sans-serif;
+            line-height: 1.04;
         }
 
-        .hero-line span {
-            display: block;
-            transform: translateY(100%);
-            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            letter-spacing: -0.06em;
         }
 
-        .hero-line:nth-child(1) span { animation-delay: 0.2s; }
-        .hero-line:nth-child(2) span { animation-delay: 0.35s; }
-        .hero-line:nth-child(3) span { animation-delay: 0.5s; }
-
-        @keyframes slideUp {
-            to { transform: translateY(0); }
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            letter-spacing: -0.04em;
         }
 
-        /* Floating animation */
-        .float {
-            animation: float 6s ease-in-out infinite;
+        p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.75;
         }
 
-        .float-delay { animation-delay: -3s; }
+        .accent { color: var(--accent); }
+        .secondary { color: var(--secondary); }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Pulse ring */
-        .pulse-ring {
-            position: relative;
-        }
-
-        .pulse-ring::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 1px solid #c9a66b;
-            opacity: 0;
-            animation: pulseRing 2s ease-out infinite;
-        }
-
-        @keyframes pulseRing {
-            0% { transform: scale(1); opacity: 0.6; }
-            100% { transform: scale(1.4); opacity: 0; }
-        }
-
-        /* Progress bars */
-        .progress-bar {
-            height: 4px;
-            background: #2a2a30;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #c9a66b, #4a7c6f);
-            border-radius: 2px;
-            transform-origin: left;
-            transform: scaleX(0);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .visible .progress-fill {
-            transform: scaleX(1);
-        }
-
-        /* Timeline */
-        .timeline-line {
-            position: absolute;
-            left: 24px;
+        .site-header {
+            position: sticky;
             top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, #c9a66b, #4a7c6f, transparent);
+            z-index: 120;
+            backdrop-filter: blur(18px);
+            background: rgba(7, 12, 20, 0.55);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.25s ease, background 0.25s ease;
         }
 
-        .timeline-dot {
+        .site-header.is-scrolled {
+            border-color: var(--line);
+            background: rgba(7, 12, 20, 0.86);
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            min-height: 4.75rem;
+        }
+
+        .brand {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .brand-name {
+            font-family: "Sora", sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+        .brand-role {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.96rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible { color: var(--text); }
+
+        .menu-toggle {
+            display: none;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+        }
+
+        .menu-toggle span,
+        .menu-toggle::before,
+        .menu-toggle::after {
+            content: "";
+            display: block;
+            width: 1.15rem;
+            height: 2px;
+            margin: 0.24rem auto;
+            background: currentColor;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .menu-toggle[aria-expanded="true"] span { opacity: 0; }
+        .menu-toggle[aria-expanded="true"]::before { transform: translateY(6px) rotate(45deg); }
+        .menu-toggle[aria-expanded="true"]::after { transform: translateY(-6px) rotate(-45deg); }
+
+        .mobile-menu { display: none; padding: 0 0 1rem; }
+        .mobile-menu[aria-hidden="false"] { display: block; }
+
+        .mobile-menu-panel {
+            display: grid;
+            gap: 0.75rem;
+            padding: 1rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            background: rgba(15, 23, 37, 0.95);
+        }
+
+        .button,
+        .button-secondary,
+        .button-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            min-height: 3.2rem;
+            padding: 0 1.25rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-weight: 700;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .button:hover,
+        .button-secondary:hover,
+        .button-ghost:hover { transform: translateY(-2px); }
+
+        .button {
+            color: #08101b;
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            box-shadow: 0 16px 40px rgba(242, 185, 95, 0.25);
+        }
+
+        .button-secondary {
+            color: var(--text);
+            border-color: rgba(242, 185, 95, 0.45);
+            background: rgba(242, 185, 95, 0.08);
+        }
+
+        .button-ghost {
+            color: var(--text);
+            border-color: var(--line);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .hero { padding: 5rem 0 4rem; }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .hero-copy { display: grid; gap: 1.5rem; }
+        .hero-copy p { max-width: 42rem; font-size: 1.05rem; }
+        .hero-actions,
+        .hero-metrics { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .hero-metrics { padding-top: 0.5rem; }
+
+        .hero-kicker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            align-items: center;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .hero-kicker span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .hero-kicker span::before {
+            content: "";
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 999px;
+            background: var(--success);
+        }
+
+        .metric-card,
+        .glass-panel,
+        .card,
+        .service-card,
+        .process-card,
+        .project-card,
+        .timeline-card,
+        .contact-card {
+            border: 1px solid var(--line);
+            background: var(--panel);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow);
+        }
+
+        .metric-card {
+            min-width: 9rem;
+            padding: 1rem 1.1rem;
+            border-radius: 1.15rem;
+        }
+
+        .metric-value {
+            font-family: "Sora", sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+
+        .metric-label {
+            margin-top: 0.35rem;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .hero-visual { position: relative; min-height: 38rem; }
+
+        .portrait-panel {
+            position: sticky;
+            top: 6.5rem;
+            padding: 1.5rem;
+            border-radius: calc(var(--radius) + 8px);
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .portrait-panel::before {
+            content: "";
             position: absolute;
-            left: 16px;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #0a0a0b;
-            border: 2px solid #c9a66b;
-            z-index: 2;
+            inset: auto -10% -25% 25%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(111, 209, 194, 0.35), transparent 68%);
+            filter: blur(20px);
         }
 
-        /* Hover cards */
+        .portrait-meta {
+            position: absolute;
+            inset: 1rem 1rem auto auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 999px;
+            background: rgba(8, 16, 27, 0.74);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            font-size: 0.84rem;
+            z-index: 1;
+        }
+
+        .status-dot {
+            width: 0.6rem;
+            height: 0.6rem;
+            border-radius: 999px;
+            background: var(--secondary);
+            box-shadow: 0 0 0 0 rgba(111, 209, 194, 0.45);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(111, 209, 194, 0.45); }
+            100% { box-shadow: 0 0 0 14px rgba(111, 209, 194, 0); }
+        }
+
+        .portrait-wrap {
+            position: relative;
+            border-radius: calc(var(--radius) + 2px);
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, rgba(242, 185, 95, 0.12), transparent 30%),
+                linear-gradient(180deg, #16243b 0%, #0d1728 100%);
+            min-height: 32rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .portrait-wrap::before,
+        .portrait-wrap::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            border: 1px solid rgba(111, 209, 194, 0.22);
+            pointer-events: none;
+        }
+
+        .portrait-wrap::before {
+            width: 18rem;
+            height: 18rem;
+            right: -6rem;
+            top: 2rem;
+            animation: orbital 12s linear infinite;
+        }
+
+        .portrait-wrap::after {
+            width: 9rem;
+            height: 9rem;
+            left: -2rem;
+            bottom: 7rem;
+            border-color: rgba(242, 185, 95, 0.24);
+            animation: orbital 9s linear infinite reverse;
+        }
+
+        .portrait-wrap img {
+            width: min(100%, 25rem);
+            object-fit: contain;
+            filter: drop-shadow(0 30px 70px rgba(0, 0, 0, 0.5));
+        }
+
+        .hero-note {
+            position: absolute;
+            left: 1.25rem;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            display: grid;
+            gap: 0.55rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            background: rgba(8, 15, 25, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-note strong { font-size: 0.95rem; }
+
+        @keyframes orbital {
+            0% { transform: rotate(0deg) translateX(0.5rem) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(0.5rem) rotate(-360deg); }
+        }
+
+        .about-grid,
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 1.5rem;
+        }
+
+        .glass-panel,
+        .contact-card {
+            border-radius: var(--radius);
+            padding: 2rem;
+        }
+
+        .facts-grid,
+        .services-grid,
+        .expertise-grid,
+        .projects-grid,
+        .process-grid,
+        .contact-points { display: grid; gap: 1rem; }
+
+        .facts-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-top: 1.5rem;
+        }
+
+        .fact {
+            padding: 1.25rem;
+            border-radius: 1.1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .fact-value {
+            font-family: "Sora", sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+        }
+
+        .card {
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+        }
+
+        .services-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .service-card,
+        .process-card {
+            border-radius: var(--radius-sm);
+            padding: 1.35rem;
+            transition: transform 0.25s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            will-change: transform;
+        }
+
+        .service-card:hover,
+        .process-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(111, 209, 194, 0.34);
+            background: var(--panel-strong);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+        }
+
+        .service-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.7rem;
+            height: 2.7rem;
+            margin-bottom: 1rem;
+            border-radius: 0.9rem;
+            color: #08101b;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            font-weight: 900;
+        }
+
+        .service-card h3,
+        .process-card h3 {
+            font-size: 1.08rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .process-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            counter-reset: process;
+        }
+
+        .process-card {
+            position: relative;
+            min-height: 12rem;
+        }
+
+        .process-card::before {
+            counter-increment: process;
+            content: "0" counter(process);
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-family: "Sora", sans-serif;
+            font-weight: 800;
+        }
+
+        .expertise-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .card-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2.75rem;
+            min-height: 2.75rem;
+            border-radius: 0.9rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .progress-list { display: grid; gap: 0.9rem; margin-top: 1.25rem; }
+        .progress-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 0.45rem;
+        }
+
+        .progress-track {
+            height: 0.45rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.07);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .skills-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-pill {
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--line);
+            color: var(--text);
+            font-size: 0.92rem;
+        }
+
+        .timeline {
+            position: relative;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 1.1rem;
+            top: 0.4rem;
+            bottom: 0.4rem;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(242, 185, 95, 0.6), rgba(111, 209, 194, 0.25));
+        }
+
+        .timeline-card {
+            position: relative;
+            margin-left: 3.2rem;
+            padding: 1.35rem 1.4rem;
+            border-radius: 1.2rem;
+        }
+
+        .timeline-card::before {
+            content: "";
+            position: absolute;
+            left: -2.7rem;
+            top: 1.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 0 6px rgba(242, 185, 95, 0.14);
+        }
+
+        .timeline-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-year {
+            color: var(--accent);
+            font-family: "Sora", sans-serif;
+            font-weight: 800;
+        }
+
+        .timeline-location {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .projects-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
         .project-card {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: grid;
+            gap: 1rem;
+            padding: 1.6rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.25s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            will-change: transform;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: translateX(-100%);
+            transition: opacity 0.2s ease;
         }
 
         .project-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px -20px rgba(201, 166, 107, 0.2);
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(135deg, transparent, rgba(201, 166, 107, 0.3), transparent);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s;
+            border-color: rgba(242, 185, 95, 0.35);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
         }
 
         .project-card:hover::before {
             opacity: 1;
+            animation: sheen 1.15s ease;
         }
 
-        /* Professional bottom fade for profile image */
-        .profile-fade {
-            position: relative;
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
-            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
+        @keyframes sheen {
+            100% { transform: translateX(100%); }
         }
 
-        .profile-fade::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 30%;
-            background: linear-gradient(to bottom, rgba(10, 10, 11, 0), rgba(10, 10, 11, 0.95));
-            pointer-events: none;
+        .project-impact {
+            display: grid;
+            gap: 0.35rem;
+            padding: 0.95rem 1rem;
+            border-left: 3px solid var(--secondary);
+            border-radius: 0.75rem;
+            background: rgba(111, 209, 194, 0.07);
         }
 
-        /* Magnetic button effect */
-        .magnetic-btn {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
+        .project-impact span {
+            color: var(--secondary);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
-        .magnetic-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #c9a66b, #4a7c6f);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .magnetic-btn:hover::before {
-            opacity: 1;
-        }
-
-        .magnetic-btn span {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Cursor follower */
-        .cursor-glow {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(201, 166, 107, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s;
-        }
-
-        /* Skill tag hover */
-        .skill-tag {
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: rgba(201, 166, 107, 0.15);
-            border-color: #c9a66b;
-            transform: scale(1.05);
-        }
-
-        /* Nav scroll state */
-        .nav-scrolled {
-            background: rgba(10, 10, 11, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid #2a2a30;
-        }
-
-        /* Section number */
-        .section-number {
-            font-size: 120px;
+        .project-client {
+            color: var(--secondary);
             font-weight: 700;
-            line-height: 1;
-            color: transparent;
-            -webkit-text-stroke: 1px #2a2a30;
-            position: absolute;
-            top: -20px;
-            left: -10px;
-            opacity: 0.5;
-            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
         }
 
-        /* Reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tag {
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .contact-points {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-top: 1.5rem;
+        }
+
+        .contact-point {
+            display: grid;
+            gap: 0.35rem;
+            padding: 1rem 1.1rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-point span {
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .form-field {
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .form-field label {
+            color: var(--text);
+            font-weight: 700;
+            font-size: 0.92rem;
+        }
+
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            width: 100%;
+            min-height: 3.1rem;
+            border: 1px solid rgba(186, 207, 255, 0.16);
+            border-radius: 0.95rem;
+            background: rgba(255, 255, 255, 0.045);
+            color: var(--text);
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-field select {
+            color-scheme: dark;
+            appearance: none;
+            background-image:
+                linear-gradient(45deg, transparent 50%, var(--accent) 50%),
+                linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+            background-position:
+                calc(100% - 1.15rem) 50%,
+                calc(100% - 0.78rem) 50%;
+            background-size: 0.38rem 0.38rem, 0.38rem 0.38rem;
+            background-repeat: no-repeat;
+            padding-right: 2.6rem;
+        }
+
+        .form-field select option {
+            color: #edf3ff;
+            background: #101827;
+        }
+
+        .form-field select option:checked {
+            background: #1c2a3f;
+        }
+
+        .form-field textarea {
+            min-height: 8.5rem;
+            resize: vertical;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            border-color: rgba(111, 209, 194, 0.62);
+            background: rgba(255, 255, 255, 0.065);
+            box-shadow: 0 0 0 4px rgba(111, 209, 194, 0.09);
+        }
+
+        .form-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .form-status {
+            min-height: 1.5rem;
+            color: var(--secondary);
+            font-size: 0.92rem;
+        }
+
+        .floating-whatsapp {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            z-index: 150;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            min-height: 3.35rem;
+            padding: 0 1.1rem;
+            border-radius: 999px;
+            color: #07101a;
+            background: linear-gradient(135deg, #7ef2a2, #38d36f);
+            box-shadow: 0 18px 45px rgba(56, 211, 111, 0.28);
+            font-weight: 900;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .floating-whatsapp-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 999px;
+            color: #ffffff;
+            background: rgba(7, 16, 26, 0.18);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .floating-whatsapp-icon svg {
+            width: 1.2rem;
+            height: 1.2rem;
+            fill: currentColor;
+        }
+
+        .floating-whatsapp:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 24px 65px rgba(56, 211, 111, 0.36);
+        }
+
+        .footer {
+            padding: 1.5rem 0 2.75rem;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(34px) scale(0.98);
+            transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .reveal.is-visible:nth-child(2) { transition-delay: 0.06s; }
+        .reveal.is-visible:nth-child(3) { transition-delay: 0.12s; }
+        .reveal.is-visible:nth-child(4) { transition-delay: 0.18s; }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 960px) {
+            .hero-grid,
+            .about-grid,
+            .contact-grid,
+            .services-grid,
+            .expertise-grid,
+            .process-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portrait-panel {
+                position: relative;
+                top: auto;
+            }
+
+            .hero-visual { min-height: auto; }
+        }
+
+        @media (max-width: 760px) {
+            .section { padding: 4.5rem 0; }
+            .nav-links { display: none; }
+            .menu-toggle { display: inline-block; }
+            .hero { padding-top: 3rem; }
+            .hero-actions {
+                display: grid;
+            }
+
+            .hero-actions .button,
+            .hero-actions .button-secondary,
+            .hero-actions .button-ghost {
+                width: 100%;
+            }
+
+            .hero-metrics,
+            .contact-points,
+            .facts-grid { grid-template-columns: 1fr; }
+            .hero-metrics { display: grid; }
+            .contact-points,
+            .facts-grid { display: grid; }
+            .portrait-wrap { min-height: 26rem; }
+            .hero-note { position: relative; left: auto; right: auto; bottom: auto; margin-top: 1rem; }
+            .form-actions { grid-template-columns: 1fr; }
+            .floating-whatsapp {
+                right: 1rem;
+                bottom: 1rem;
+                min-height: 3rem;
+                padding: 0 0.9rem;
             }
         }
 
-        /* Focus states */
-        a:focus-visible, button:focus-visible {
-            outline: 2px solid #c9a66b;
-            outline-offset: 4px;
-        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0ms !important;
+            }
 
-        ::-webkit-scrollbar-track {
-            background: #0a0a0b;
-        }
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
 
-        ::-webkit-scrollbar-thumb {
-            background: #2a2a30;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3a3a40;
+            .portrait-wrap::before,
+            .portrait-wrap::after,
+            .project-card:hover::before {
+                animation: none !important;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Network Background -->
-    <canvas id="network-bg" aria-hidden="true"></canvas>
-    
-    <!-- Cursor Glow -->
-    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#hero" class="font-display font-bold text-xl text-fg hover:text-accent transition-colors">
-                RHY
-            </a>
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#about" class="text-sm text-muted hover:text-fg transition-colors">A propos</a>
-                <a href="#expertise" class="text-sm text-muted hover:text-fg transition-colors">Expertise</a>
-                <a href="#parcours" class="text-sm text-muted hover:text-fg transition-colors">Parcours</a>
-                <a href="#projets" class="text-sm text-muted hover:text-fg transition-colors">Projets</a>
-                <a href="#contact" class="magnetic-btn bg-accent text-bg px-5 py-2 rounded-full text-sm font-medium">
-                    <span>Contact</span>
+    <a class="skip-link" href="#main-content">Aller au contenu</a>
+    <div class="site-shell">
+        <canvas id="network-bg" aria-hidden="true"></canvas>
+        <header class="site-header" id="site-header">
+            <div class="container nav-bar">
+                <a class="brand" href="#accueil" aria-label="Retour en haut de la page">
+                    <span class="brand-name">RHUDY HARIEL YOCKA</span>
+                    <span class="brand-role">Réseaux, systèmes et architecture d'infrastructure</span>
                 </a>
+                <nav class="nav-links" aria-label="Navigation principale">
+                    <a href="#apropos">À propos</a>
+                    <a href="#services">Services</a>
+                    <a href="#expertise">Expertise</a>
+                    <a href="#methode">Méthode</a>
+                    <a href="#parcours">Parcours</a>
+                    <a href="#projets">Projets</a>
+                    <a class="button-secondary" href="#contact">Contact</a>
+                </nav>
+                <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Ouvrir le menu">
+                    <span></span>
+                </button>
             </div>
-            <button id="mobileMenuBtn" class="md:hidden text-fg p-2" aria-label="Menu">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="md:hidden hidden bg-surface border-t border-border">
-            <div class="px-6 py-4 flex flex-col gap-4">
-                <a href="#about" class="text-muted hover:text-fg transition-colors py-2">A propos</a>
-                <a href="#expertise" class="text-muted hover:text-fg transition-colors py-2">Expertise</a>
-                <a href="#parcours" class="text-muted hover:text-fg transition-colors py-2">Parcours</a>
-                <a href="#projets" class="text-muted hover:text-fg transition-colors py-2">Projets</a>
-                <a href="#contact" class="bg-accent text-bg px-5 py-3 rounded-full text-sm font-medium text-center">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="min-h-screen flex items-center justify-center relative px-6 pt-28 md:pt-24">
-            <div class="max-w-6xl mx-auto w-full relative z-10">
-                <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-                    <div class="reveal reveal-delay-1 flex justify-center lg:justify-start">
-                        <div class="profile-fade w-full max-w-[220px] md:max-w-[280px] lg:max-w-[340px]">
-                            <img
-                                src="Generated_Image_September_24__2025_-_11_34AM-removebg-preview.png"
-                                alt="Photo de profil de Rhudy Hariel Yocka"
-                                class="w-full h-auto object-contain drop-shadow-[0_24px_80px_rgba(201,166,107,0.25)]"
-                            >
-                        </div>
-                    </div>
-
-                    <div class="text-center lg:text-left lg:-ml-6">
-                        <div class="mb-8 reveal">
-                            <span class="inline-flex items-center gap-2 text-accent text-sm font-medium tracking-wider uppercase">
-                                <span class="w-2 h-2 rounded-full bg-network animate-pulse"></span>
-                                Architecte d'Infrastructures
-                            </span>
-                        </div>
-                        
-                        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                            <div class="hero-line"><span class="whitespace-nowrap">Rhudy Hariel <span class="text-accent">Yocka</span></span></div>
-                        </h1>
-                        
-                        <p class="text-lg md:text-xl text-muted max-w-2xl lg:max-w-xl mx-auto lg:mx-0 mb-12 reveal reveal-delay-2">
-                            Je conçois les fondations invisibles qui permettent aux organisations de fonctionner. 
-                            Réseaux, systèmes, sécurité — l'infrastructure qui ne s'arrête jamais.
-                        </p>
-                        
-                        <div class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 reveal reveal-delay-3">
-                            <a href="#projets" class="magnetic-btn bg-accent text-bg px-6 py-3 rounded-full text-base font-medium flex items-center gap-2 whitespace-nowrap">
-                                <span>Decouvrir mes projets</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                            <a href="CV_2026-02-04_Rhudy%20Hariel_YOCKA.pdf" download class="border border-accent text-accent px-6 py-3 rounded-full text-base font-medium hover:bg-accent hover:text-bg transition-all flex items-center gap-2 whitespace-nowrap">
-                                <span>Telecharger CV</span>
-                                <i class="fas fa-download"></i>
-                            </a>
-                            <a href="#contact" class="border border-border text-fg px-6 py-3 rounded-full text-base font-medium hover:border-accent hover:text-accent transition-all">
-                                Discutons
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Scroll indicator -->
-                <div class="absolute -bottom-16 left-1/2 -translate-x-1/2 reveal reveal-delay-4 hidden lg:block">
-                    <div class="flex flex-col items-center gap-2 text-muted">
-                        <span class="text-xs tracking-widest uppercase">Scroll</span>
-                        <div class="w-px h-12 bg-gradient-to-b from-accent to-transparent"></div>
-                    </div>
+            <div class="container mobile-menu" id="mobile-menu" aria-hidden="true">
+                <div class="mobile-menu-panel">
+                    <a href="#apropos">À propos</a>
+                    <a href="#services">Services</a>
+                    <a href="#expertise">Expertise</a>
+                    <a href="#methode">Méthode</a>
+                    <a href="#parcours">Parcours</a>
+                    <a href="#projets">Projets</a>
+                    <a href="#contact">Contact</a>
                 </div>
             </div>
-            
-            <!-- Floating elements -->
-            <div class="absolute top-1/4 left-10 float opacity-20" aria-hidden="true">
-                <i class="fas fa-server text-6xl text-accent"></i>
-            </div>
-            <div class="absolute bottom-1/4 right-10 float float-delay opacity-20" aria-hidden="true">
-                <i class="fas fa-network-wired text-6xl text-network"></i>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="py-32 px-6 relative">
-            <div class="max-w-6xl mx-auto">
-                <div class="grid lg:grid-cols-2 gap-16 items-center">
-                    <div class="reveal">
-                        <span class="section-number" aria-hidden="true">01</span>
-                        <span class="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">A propos</span>
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-8 leading-tight">
-                            L'architecte des<br>
-                            <span class="text-network">systèmes invisibles</span>
-                        </h2>
-                        <div class="space-y-6 text-muted leading-relaxed">
-                            <p>
-                                Dans un monde où la connectivité est vitale, je suis celui qui s'assure que tout fonctionne — 
-                                sans que personne ne remarque les mécanismes en jeu. Mon rôle est de rendre l'infrastructure 
-                                transparente pour les utilisateurs, mais robuste face aux défis.
-                            </p>
-                            <p>
-                                Diplômé de l'ESCAT avec une Licence en Réseaux Informatique, j'ai transformé mes connaissances 
-                                théoriques en interventions concrètes : déploiement de réseaux WiFi professionnels, 
-                                installation de systèmes de vidéosurveillance, configuration de téléphonie IP, et 
-                                administration de serveurs Windows Server.
-                            </p>
-                            <p>
-                                Chaque projet est une opportunité de résoudre un problème réel pour une organisation. 
-                                Je ne configure pas des serveurs — je permets à des équipes de collaborer. 
-                                Je n'installe pas des caméras — je protège ce qui compte.
-                            </p>
+        </header>
+        <main id="main-content">
+            <section class="hero section" id="accueil">
+                <div class="container hero-grid">
+                    <div class="hero-copy reveal">
+                        <span class="eyebrow">Infrastructure fiable, lisible, durable</span>
+                        <h1>Je rends les réseaux et les serveurs <span class="accent">plus fiables au quotidien</span>.</h1>
+                        <p>Je suis Rhudy Hariel Yocka, spécialiste réseaux, systèmes Windows Server et infrastructures numériques à Brazzaville. J'aide les organisations à déployer, sécuriser et maintenir des environnements clairs, documentés et utilisables par les équipes terrain.</p>
+                        <div class="hero-kicker" aria-label="Services principaux">
+                            <span>Wi-Fi professionnel</span>
+                            <span>Active Directory</span>
+                            <span>VoIP et CCTV</span>
+                        </div>
+                        <div class="hero-actions">
+                            <a class="button" href="#contact">Planifier une intervention</a>
+                            <a class="button-secondary" href="CV_2026-02-04_Rhudy%20Hariel_YOCKA.pdf" download>Télécharger le CV</a>
+                            <a class="button-ghost" href="#projets">Voir les réalisations</a>
+                        </div>
+                        <div class="hero-metrics" aria-label="Indicateurs clés">
+                            <article class="metric-card">
+                                <div class="metric-value">6+</div>
+                                <div class="metric-label">missions documentées</div>
+                            </article>
+                            <article class="metric-card">
+                                <div class="metric-value">3+</div>
+                                <div class="metric-label">années d'expérience</div>
+                            </article>
+                            <article class="metric-card">
+                                <div class="metric-value">24h</div>
+                                <div class="metric-label">délai de réponse cible</div>
+                            </article>
                         </div>
                     </div>
-                    
-                    <div class="reveal reveal-delay-2">
-                        <div class="bg-card rounded-2xl p-8 border border-border relative overflow-hidden">
-                            <!-- Decorative corner -->
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent"></div>
-                            
-                            <div class="grid grid-cols-2 gap-6 relative z-10">
-                                <div class="text-center p-6 bg-surface rounded-xl">
-                                    <div class="text-4xl font-display font-bold text-accent mb-2">7+</div>
-                                    <div class="text-sm text-muted">Projets realises</div>
-                                </div>
-                                <div class="text-center p-6 bg-surface rounded-xl">
-                                    <div class="text-4xl font-display font-bold text-network mb-2">3+</div>
-                                    <div class="text-sm text-muted">Annees d'experience</div>
-                                </div>
-                                <div class="text-center p-6 bg-surface rounded-xl">
-                                    <div class="text-4xl font-display font-bold text-accent mb-2">10+</div>
-                                    <div class="text-sm text-muted">Technologies maitrisees</div>
-                                </div>
-                                <div class="text-center p-6 bg-surface rounded-xl">
-                                    <div class="text-4xl font-display font-bold text-network mb-2">100%</div>
-                                    <div class="text-sm text-muted">Satisfaction client</div>
-                                </div>
+                    <div class="hero-visual reveal">
+                        <aside class="portrait-panel glass-panel" aria-label="Présentation rapide">
+                            <div class="portrait-meta">
+                                <span class="status-dot" aria-hidden="true"></span>
+                                Brazzaville et assistance à distance
                             </div>
-                            
-                            <div class="mt-8 pt-8 border-t border-border">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
-                                        <i class="fas fa-map-marker-alt text-accent text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-medium text-fg">Brazzaville, Republique du Congo</div>
-                                        <div class="text-sm text-muted">Disponible pour missions locales et distantes</div>
-                                    </div>
-                                </div>
+                            <div class="portrait-wrap">
+                                <img src="Generated_Image_September_24__2025_-_11_34AM-removebg-preview.png" alt="Portrait de Rhudy Hariel Yocka">
                             </div>
-                        </div>
+                            <div class="hero-note">
+                                <strong>Promesse de travail</strong>
+                                <p>Diagnostiquer clairement, déployer proprement, sécuriser les accès et laisser une base que l'équipe peut exploiter sans flou.</p>
+                            </div>
+                        </aside>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Expertise Section -->
-        <section id="expertise" class="py-32 px-6 bg-surface relative">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-20 reveal">
-                    <span class="section-number left-1/2 -translate-x-1/2" aria-hidden="true">02</span>
-                    <span class="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">Expertise</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold">
-                        Domaines de competences
-                    </h2>
-                </div>
-                
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-reveal">
-                    <!-- Networks -->
-                    <div class="bg-card rounded-2xl p-8 border border-border group hover:border-accent/50 transition-all duration-300">
-                        <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
-                            <i class="fas fa-network-wired text-accent text-2xl"></i>
+            </section>
+            <section class="section" id="apropos">
+                <div class="container about-grid">
+                    <div class="glass-panel reveal">
+                        <div class="section-header">
+                            <span class="eyebrow">À propos</span>
+                            <h2>L'architecture invisible qui soutient les usages quotidiens.</h2>
                         </div>
-                        <h3 class="font-display text-xl font-semibold mb-4">Administration Reseaux</h3>
-                        <p class="text-muted text-sm mb-6">
-                            Configuration et maintenance d'infrastructures LAN, VLAN, routage et commutation pour des environnements professionnels.
-                        </p>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-muted">LAN / VLAN</span>
-                                    <span class="text-accent">95%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="--progress: 95%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-muted">Routeurs & Switchs</span>
-                                    <span class="text-accent">90%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="--progress: 90%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-muted">WiFi Professionnel</span>
-                                    <span class="text-accent">92%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="--progress: 92%"></div>
-                                </div>
-                            </div>
+                        <div style="display:grid; gap:1rem;">
+                            <p>J'interviens sur les fondations techniques d'une organisation: connectivité, services réseau, annuaire, supervision et sécurité opérationnelle. Mon objectif n'est pas seulement d'installer des outils, mais de créer un socle fiable pour le travail réel.</p>
+                            <p>Diplômé de l'ESCAT en réseaux informatiques, j'ai transformé cette base académique en projets concrets: déploiements Wi-Fi, téléphonie IP, vidéosurveillance, administration Windows Server et gestion d'Active Directory.</p>
+                            <p>J'accorde de l'importance à la clarté des configurations, à la continuité de service et à la capacité d'une équipe à reprendre la main sans dépendance inutile.</p>
                         </div>
                     </div>
-                    
-                    <!-- Systems -->
-                    <div class="bg-card rounded-2xl p-8 border border-border group hover:border-network/50 transition-all duration-300">
-                        <div class="w-14 h-14 rounded-xl bg-network/10 flex items-center justify-center mb-6 group-hover:bg-network/20 transition-colors">
-                            <i class="fas fa-server text-network text-2xl"></i>
-                        </div>
-                        <h3 class="font-display text-xl font-semibold mb-4">Systemes & Serveurs</h3>
-                        <p class="text-muted text-sm mb-6">
-                            Administration Windows Server, gestion des identités Active Directory et configuration des services reseau.
-                        </p>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-muted">Windows Server</span>
-                                    <span class="text-network">93%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="--progress: 93%"></div>
-                                </div>
+                    <aside class="glass-panel reveal" aria-label="Chiffres et disponibilité">
+                        <p class="secondary" style="font-weight:700; margin-bottom:.75rem;">Base de travail</p>
+                        <h3 style="font-size:1.8rem; margin-bottom:1rem;">Brazzaville, République du Congo</h3>
+                        <p>Disponible pour des missions locales, de l'assistance à distance, des installations sur site et des interventions de mise à niveau d'infrastructure.</p>
+                        <div class="facts-grid">
+                            <div class="fact">
+                                <div class="fact-value accent">LAN / VLAN</div>
+                                <p>Segmentation, routage, commutation et organisation des flux.</p>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-muted">Active Directory</span>
-                                    <span class="text-network">90%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="--progress: 90%"></div>
-                                </div>
+                            <div class="fact">
+                                <div class="fact-value secondary">Windows Server</div>
+                                <p>Active Directory, GPO, DNS, DHCP et services internes.</p>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-muted">DNS / DHCP / GPO</span>
-                                    <span class="text-network">88%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="--progress: 88%"></div>
-                                </div>
+                            <div class="fact">
+                                <div class="fact-value accent">VoIP & CCTV</div>
+                                <p>Déploiement terrain, maintenance et optimisation des usages.</p>
+                            </div>
+                            <div class="fact">
+                                <div class="fact-value secondary">Supervision</div>
+                                <p>Suivi des actifs, sécurité de base et visibilité opérationnelle.</p>
                             </div>
                         </div>
+                    </aside>
+                </div>
+            </section>
+            <section class="section" id="services">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Services</span>
+                        <h2>Des interventions ciblées pour remettre l'infrastructure au service du métier.</h2>
+                        <p>J'interviens sur les besoins concrets: installer, corriger, documenter, sécuriser et rendre l'exploitation plus simple pour les équipes.</p>
                     </div>
-                    
-                    <!-- Security -->
-                    <div class="bg-card rounded-2xl p-8 border border-border group hover:border-accent/50 transition-all duration-300">
-                        <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
-                            <i class="fas fa-shield-alt text-accent text-2xl"></i>
+                    <div class="services-grid" id="services-grid"></div>
+                </div>
+            </section>
+            <section class="section" id="expertise">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Expertise</span>
+                        <h2>Compétences techniques appliquées à des besoins réels.</h2>
+                        <p>Le portefeuille ci-dessous regroupe les domaines dans lesquels j'interviens le plus souvent, avec une logique orientée fiabilité, simplicité d'exploitation et continuité de service.</p>
+                    </div>
+                    <div class="expertise-grid" id="expertise-grid"></div>
+                    <div class="glass-panel reveal" style="margin-top:1.5rem;">
+                        <h3 style="font-size:1.35rem; margin-bottom:1rem;">Technologies et outils</h3>
+                        <div class="skills-cloud" id="skills-cloud"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="parcours">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Parcours</span>
+                        <h2>Une progression construite sur la pratique et le terrain.</h2>
+                    </div>
+                    <div class="timeline" id="timeline"></div>
+                </div>
+            </section>
+            <section class="section" id="methode">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Méthode</span>
+                        <h2>Une démarche courte, claire et vérifiable.</h2>
+                    </div>
+                    <div class="process-grid">
+                        <article class="process-card reveal">
+                            <h3>Audit et priorités</h3>
+                            <p>Je commence par cartographier l'existant, les risques et les irritants qui bloquent le travail quotidien.</p>
+                        </article>
+                        <article class="process-card reveal">
+                            <h3>Déploiement maîtrisé</h3>
+                            <p>Chaque changement est préparé, testé autant que possible, puis livré avec une attention forte à la continuité de service.</p>
+                        </article>
+                        <article class="process-card reveal">
+                            <h3>Transmission</h3>
+                            <p>Je laisse des repères simples: configurations propres, logique d'exploitation et recommandations pour la maintenance.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="section" id="projets">
+                <div class="container">
+                    <div class="section-header reveal">
+                        <span class="eyebrow">Projets</span>
+                        <h2>Réalisations concrètes au service des organisations.</h2>
+                        <p>Chaque mission répond à un problème identifié: couverture réseau, mutualisation des services, amélioration de la sécurité ou structuration d'un environnement interne.</p>
+                    </div>
+                    <div class="projects-grid" id="projects-grid"></div>
+                </div>
+            </section>
+            <section class="section" id="contact">
+                <div class="container contact-grid">
+                    <div class="contact-card reveal">
+                        <div class="section-header" style="margin-bottom:1.5rem;">
+                            <span class="eyebrow">Contact</span>
+                            <h2>Parlons de votre infrastructure.</h2>
                         </div>
-                        <h3 class="font-display text-xl font-semibold mb-4">Securite & Supervision</h3>
-                        <p class="text-muted text-sm mb-6">
-                            Mise en place de solutions de surveillance, pare-feu et monitoring pour proteger les infrastructures.
-                        </p>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-muted">Pare-feu</span>
-                                    <span class="text-accent">85%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="--progress: 85%"></div>
-                                </div>
+                        <p>Si vous avez besoin d'un diagnostic, d'un déploiement réseau, d'une mise à niveau serveur, d'une architecture Active Directory ou d'une installation sur site, envoyez-moi le contexte: je réponds avec une proposition d'intervention claire.</p>
+                        <div class="contact-points">
+                            <div class="contact-point">
+                                <span>Email</span>
+                                <a href="mailto:harielrhudy@gmail.com">harielrhudy@gmail.com</a>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-muted">GLPI / Monitoring</span>
-                                    <span class="text-accent">88%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="--progress: 88%"></div>
-                                </div>
+                            <div class="contact-point">
+                                <span>Téléphone principal</span>
+                                <a href="tel:+242066414608">+242 066 414 608</a>
                             </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-muted">Videosurveillance</span>
-                                    <span class="text-accent">90%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="--progress: 90%"></div>
-                                </div>
+                            <div class="contact-point">
+                                <span>Téléphone secondaire</span>
+                                <a href="tel:+242057426064">+242 057 426 064</a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Skills Tags -->
-                <div class="mt-16 reveal">
-                    <h3 class="font-display text-xl font-semibold mb-6 text-center">Technologies et outils</h3>
-                    <div class="flex flex-wrap justify-center gap-3" id="skillsContainer">
-                        <!-- Skills will be populated by JS -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Timeline Section -->
-        <section id="parcours" class="py-32 px-6 relative">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-20 reveal">
-                    <span class="section-number left-1/2 -translate-x-1/2" aria-hidden="true">03</span>
-                    <span class="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">Parcours</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold">
-                        Formation et evolution
-                    </h2>
-                </div>
-                
-                <div class="relative">
-                    <div class="timeline-line" aria-hidden="true"></div>
-                    
-                    <div class="space-y-12">
-                        <!-- Timeline items will be populated by JS -->
-                        <div id="timelineContainer"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projets" class="py-32 px-6 bg-surface relative">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-20 reveal">
-                    <span class="section-number left-1/2 -translate-x-1/2" aria-hidden="true">04</span>
-                    <span class="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">Projets</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold">
-                        Realisations concrètes
-                    </h2>
-                    <p class="text-muted mt-4 max-w-2xl mx-auto">
-                        Chaque projet repond a un besoin specifique. Voici comment j'ai aide des organisations a ameliorer leur infrastructure.
-                    </p>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-6" id="projectsContainer">
-                    <!-- Projects will be populated by JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-32 px-6 relative">
-            <div class="max-w-4xl mx-auto">
-                <div class="bg-card rounded-3xl p-8 md:p-16 border border-border relative overflow-hidden reveal">
-                    <!-- Decorative elements -->
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-accent/10 to-transparent rounded-full blur-3xl"></div>
-                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-network/10 to-transparent rounded-full blur-3xl"></div>
-                    
-                    <div class="relative z-10">
-                        <span class="section-number" aria-hidden="true">05</span>
-                        <span class="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">Contact</span>
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">
-                            Construisons ensemble<br>
-                            <span class="text-network">votre infrastructure</span>
-                        </h2>
-                        <p class="text-muted mb-12 max-w-xl">
-                            Que ce soit pour un projet de deploiement reseau, une installation de securite, 
-                            ou simplement pour discuter de vos besoins en infrastructure, je suis a votre ecoute.
-                        </p>
-                        
-                        <div class="grid md:grid-cols-2 gap-8 mb-12">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center pulse-ring">
-                                    <i class="fas fa-envelope text-accent"></i>
-                                </div>
-                                <div>
-                                    <div class="text-sm text-muted">Email</div>
-                                    <a href="mailto:harielrhudy@gmail.com" class="text-fg hover:text-accent transition-colors">harielrhudy@gmail.com</a>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-network/10 flex items-center justify-center pulse-ring">
-                                    <i class="fas fa-phone text-network"></i>
-                                </div>
-                                <div>
-                                    <div class="text-sm text-muted">Telephone</div>
-                                    <div class="flex flex-col">
-                                        <a href="tel:+242066414608" class="text-fg hover:text-network transition-colors">+242 066 414 608</a>
-                                        <a href="tel:+242057426064" class="text-fg hover:text-network transition-colors">+242 057 426 064</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                                    <i class="fas fa-map-marker-alt text-accent"></i>
-                                </div>
-                                <div>
-                                    <div class="text-sm text-muted">Adresse</div>
-                                    <span class="text-fg">43 Rue Zanaga, Moungali, Brazzaville</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-network/10 flex items-center justify-center">
-                                    <i class="fas fa-share-alt text-network"></i>
-                                </div>
-                                <div>
-                                    <div class="text-sm text-muted">Reseaux</div>
-                                    <div class="flex gap-3">
-                                        <a href="#" class="text-fg hover:text-accent transition-colors" aria-label="LinkedIn">
-                                            <i class="fab fa-linkedin"></i>
-                                        </a>
-                                        <a href="#" class="text-fg hover:text-accent transition-colors" aria-label="Twitter">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="contact-point">
+                                <span>Adresse</span>
+                                <p style="color:var(--text);">43 Rue Zanaga, Moungali, Brazzaville</p>
                             </div>
                         </div>
-                        
-                        
+                        <a class="button-secondary" href="CV_2026-02-04_Rhudy%20Hariel_YOCKA.pdf" download style="width:100%; margin-top:1.25rem;">Télécharger le CV</a>
                     </div>
+                    <aside class="glass-panel reveal">
+                        <p class="secondary" style="font-weight:700; margin-bottom:.8rem;">Demande rapide</p>
+                        <h3 style="font-size:1.8rem; margin-bottom:1rem;">Transformez un besoin flou en message clair.</h3>
+                        <p style="margin-bottom:1rem;">Remplissez le formulaire: il envoie directement la demande par email et garde WhatsApp comme option rapide.</p>
+                        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value="9ad8220d-9486-4a84-b264-df3611b49e40">
+                            <input type="hidden" name="subject" value="Nouvelle demande depuis le portfolio de Rhudy">
+                            <input type="hidden" name="from_name" value="Portfolio Rhudy Hariel Yocka">
+                            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;">
+                            <div class="form-field">
+                                <label for="contact-name">Nom ou organisation</label>
+                                <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Ex: CAMEPS, agence, boutique..." required>
+                            </div>
+                            <div class="form-field">
+                                <label for="contact-email">Email de réponse</label>
+                                <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="nom@exemple.com" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="contact-service">Besoin principal</label>
+                                <select id="contact-service" name="service" required>
+                                    <option value="">Choisir un service</option>
+                                    <option>Audit réseau</option>
+                                    <option>Wi-Fi professionnel</option>
+                                    <option>Windows Server / Active Directory</option>
+                                    <option>VoIP / téléphonie IP</option>
+                                    <option>CCTV / sécurité</option>
+                                    <option>Support technique</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="contact-urgency">Urgence</label>
+                                <select id="contact-urgency" name="urgency" required>
+                                    <option>Cette semaine</option>
+                                    <option>Aujourd'hui</option>
+                                    <option>Ce mois-ci</option>
+                                    <option>Projet à planifier</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="contact-message">Contexte</label>
+                                <textarea id="contact-message" name="message" placeholder="Décrivez le site, le problème, le nombre d'utilisateurs ou l'objectif..." required></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button class="button" type="submit">Envoyer la demande</button>
+                                <button class="button-secondary" id="whatsapp-form-button" type="button">Envoyer sur WhatsApp</button>
+                            </div>
+                            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                        </form>
+                    </aside>
                 </div>
+            </section>
+        </main>
+        <a class="floating-whatsapp" href="https://wa.me/242066414608?text=Bonjour%20Rhudy%2C%20je%20souhaite%20vous%20contacter%20pour%20une%20intervention%20technique." target="_blank" rel="noopener" aria-label="Contacter Rhudy Hariel Yocka sur WhatsApp">
+            <span class="floating-whatsapp-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" focusable="false">
+                    <path d="M16.04 3.2c-7.06 0-12.8 5.67-12.8 12.65 0 2.23.6 4.4 1.72 6.3L3.2 28.8l6.84-1.78a12.93 12.93 0 0 0 6 1.49c7.06 0 12.8-5.67 12.8-12.66S23.1 3.2 16.04 3.2Zm0 23.16c-1.9 0-3.75-.51-5.36-1.48l-.38-.23-4.06 1.06 1.08-3.9-.25-.4a10.37 10.37 0 0 1-1.62-5.56c0-5.8 4.75-10.5 10.6-10.5 5.84 0 10.6 4.7 10.6 10.5 0 5.8-4.76 10.51-10.6 10.51Zm5.82-7.86c-.32-.16-1.88-.92-2.17-1.03-.29-.1-.5-.16-.72.16-.21.31-.82 1.03-1.01 1.24-.18.21-.37.24-.69.08-.32-.16-1.34-.49-2.56-1.56a9.55 9.55 0 0 1-1.77-2.18c-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.55.16-.18.21-.31.32-.52.11-.21.05-.39-.03-.55-.08-.16-.72-1.72-.98-2.35-.26-.62-.52-.54-.72-.55h-.61c-.21 0-.56.08-.85.39-.29.32-1.12 1.09-1.12 2.66s1.15 3.09 1.31 3.3c.16.21 2.27 3.42 5.5 4.8.77.33 1.37.53 1.83.68.77.24 1.48.21 2.04.13.62-.09 1.88-.76 2.15-1.5.27-.74.27-1.37.19-1.5-.08-.13-.29-.21-.61-.37Z"></path>
+                </svg>
+            </span>
+            WhatsApp
+        </a>
+        <footer class="footer">
+            <div class="container footer-row">
+                <span id="footer-copy">Rhudy Hariel Yocka</span>
+                <span>Réseaux, systèmes Windows Server, VoIP, CCTV et infrastructure numérique</span>
             </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-8 px-6 border-t border-border">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="text-sm text-muted">
-                2025 Rhudy Hariel Yocka. Tous droits reserves.
-            </div>
-            <div class="flex items-center gap-2 text-sm text-muted">
-                <span>Concu avec</span>
-                <i class="fas fa-heart text-accent text-xs"></i>
-                <span>a Brazzaville</span>
-            </div>
-        </div>
-    </footer>
-
+        </footer>
+    </div>
     <script>
-        // Data
+        const services = [
+            {
+                icon: "Wi",
+                title: "Réseaux et Wi-Fi",
+                description: "Conception LAN, segmentation VLAN, couverture Wi-Fi, routage et optimisation des accès internes."
+            },
+            {
+                icon: "AD",
+                title: "Windows Server",
+                description: "Active Directory, DNS, DHCP, GPO et structuration des comptes pour une administration plus propre."
+            },
+            {
+                icon: "IP",
+                title: "VoIP et services",
+                description: "Téléphonie IP, partage d'imprimantes, services réseau et intégration des équipements utilisateurs."
+            },
+            {
+                icon: "Sec",
+                title: "Sécurité terrain",
+                description: "CCTV, contrôle des accès, pare-feu de base, supervision et recommandations de durcissement."
+            }
+        ];
+
+        const expertise = [
+            {
+                code: "01",
+                title: "Administration réseaux",
+                description: "Conception et maintenance d'environnements LAN, VLAN, Wi-Fi et interconnexions pour des usages professionnels.",
+                metrics: [
+                    { label: "LAN / VLAN", value: 95 },
+                    { label: "Routage & commutation", value: 90 },
+                    { label: "Wi-Fi professionnel", value: 92 }
+                ]
+            },
+            {
+                code: "02",
+                title: "Systèmes & serveurs",
+                description: "Mise en place et administration de Windows Server, Active Directory et services réseau associés.",
+                metrics: [
+                    { label: "Windows Server", value: 93 },
+                    { label: "Active Directory", value: 90 },
+                    { label: "DNS / DHCP / GPO", value: 88 }
+                ]
+            },
+            {
+                code: "03",
+                title: "Sécurité & supervision",
+                description: "Déploiement de dispositifs de surveillance, contrôle d'accès logique et outils de visibilité opérationnelle.",
+                metrics: [
+                    { label: "Pare-feu", value: 85 },
+                    { label: "GLPI / monitoring", value: 88 },
+                    { label: "Vidéosurveillance", value: 90 }
+                ]
+            }
+        ];
+
         const skills = [
-            { name: 'Windows Server', category: 'system' },
-            { name: 'Active Directory', category: 'system' },
-            { name: 'DNS / DHCP', category: 'system' },
-            { name: 'GPO', category: 'system' },
-            { name: 'VLAN', category: 'network' },
-            { name: 'WiFi Pro', category: 'network' },
-            { name: 'VoIP / SIP', category: 'network' },
-            { name: 'Cisco', category: 'network' },
-            { name: 'GLPI', category: 'security' },
-            { name: 'Pare-feu', category: 'security' },
-            { name: 'CCTV', category: 'security' },
-            { name: 'Monitoring', category: 'security' }
+            "Windows Server", "Active Directory", "DNS / DHCP", "GPO",
+            "Cisco", "LAN / VLAN", "Wi-Fi Pro", "VoIP / SIP",
+            "GLPI", "Pare-feu", "CCTV", "Monitoring"
         ];
 
         const timeline = [
             {
-                year: '2022',
-                title: 'Licence en Reseaux Informatique',
-                location: 'ESCAT, Brazzaville',
-                description: 'Specialisation en administration reseaux et systemes. Acquisition des fondamentaux de l\'infrastructure informatique moderne.',
-                type: 'education'
+                year: "Avril 2026",
+                title: "Technical Support Fundamentals - Google",
+                location: "Coursera, en ligne",
+                description: "Certification Google orientée support technique, diagnostic, systèmes, réseaux et bonnes pratiques d'assistance utilisateur.",
+                link: "https://coursera.org/verify/DYS28HALD8UV",
+                linkLabel: "Certification vérifiable"
             },
             {
-                year: '2019',
-                title: 'Baccalaureat Technique - Electronique',
-                location: 'Lycee 5 Fevrier 1979, Brazzaville',
-                description: 'Filiere F2 - Premier pas dans le monde de la technologie et de l\'electronique.',
-                type: 'education'
+                year: "2022",
+                title: "Licence en Réseaux Informatiques",
+                location: "ESCAT, Brazzaville",
+                description: "Approfondissement des fondations systèmes et réseaux, avec une orientation vers l'administration d'infrastructure."
+            },
+            {
+                year: "2019",
+                title: "Baccalauréat technique, filière électronique",
+                location: "Lycée 5 Février 1979, Brazzaville",
+                description: "Formation initiale en électronique, logique technique et culture de terrain appliquée aux équipements."
             }
         ];
 
         const projects = [
             {
-                title: 'Installation WiFi CAMEPS',
-                date: 'Novembre 2025',
-                client: 'CAMEPS, Brazzaville',
-                description: 'Deploiement d\'une infrastructure WiFi couvrant les depots pour reduire les abonnements FAI et ameliorer la connectivite.',
-                icon: 'fa-wifi',
-                tags: ['WiFi', 'Infrastructure', 'Optimisation']
+                title: "Installation Wi-Fi CAMEPS",
+                date: "Novembre 2025",
+                client: "CAMEPS, Brazzaville",
+                description: "Déploiement d'une infrastructure Wi-Fi couvrant les dépôts pour améliorer la connectivité et réduire les coûts liés aux accès multiples.",
+                impact: "Couverture plus cohérente des espaces de travail et accès réseau simplifiés pour les équipes.",
+                tags: ["Wi-Fi", "Infrastructure", "Optimisation"]
             },
             {
-                title: 'Systeme de Videosurveillance',
-                date: 'Juillet 2025',
-                client: 'ETS KAMISSOKO Fils, Brazzaville',
-                description: 'Installation complete d\'un systeme de videosurveillance pour securiser une boutique d\'habillement de luxe.',
-                icon: 'fa-video',
-                tags: ['CCTV', 'Securite', 'Installation']
+                title: "Système de vidéosurveillance",
+                date: "Juillet 2025",
+                client: "ETS KAMISSOKO Fils",
+                description: "Installation complète d'un système CCTV pour renforcer la sécurité physique d'une boutique haut de gamme.",
+                impact: "Meilleure visibilité sur les zones sensibles et dispositif exploitable au quotidien.",
+                tags: ["CCTV", "Sécurité", "Installation"]
             },
             {
-                title: 'Telephonie IP Locale',
-                date: 'Juillet 2025',
-                client: 'HPES, Brazzaville',
-                description: 'Deploiement VoIP de 10 postes pour optimiser la communication interne de l\'entreprise.',
-                icon: 'fa-phone-volume',
-                tags: ['VoIP', 'SIP', 'Communication']
+                title: "Téléphonie IP locale",
+                date: "Juillet 2025",
+                client: "HPES, Brazzaville",
+                description: "Mise en place d'une solution VoIP de 10 postes afin d'améliorer la communication interne et la souplesse d'exploitation.",
+                impact: "Communication interne plus fluide avec une base prête pour l'ajout de nouveaux postes.",
+                tags: ["VoIP", "SIP", "Communication"]
             },
             {
-                title: 'Mise en reseau Imprimantes',
-                date: 'Avril 2024',
-                client: 'Ambassade du Bresil, Brazzaville',
-                description: 'Configuration reseau de deux imprimantes par service pour optimiser le partage et l\'efficacite d\'impression.',
-                icon: 'fa-print',
-                tags: ['Reseau', 'Partage', 'Productivite']
+                title: "Mise en réseau d'imprimantes",
+                date: "Avril 2024",
+                client: "Ambassade du Brésil, Brazzaville",
+                description: "Configuration d'imprimantes partagées par service pour rationaliser les usages et améliorer la productivité.",
+                impact: "Réduction des manipulations inutiles et partage mieux organisé entre services.",
+                tags: ["Réseau", "Partage", "Productivité"]
             },
             {
-                title: 'Controleur de Domaine AD',
-                date: 'Mars 2023',
-                client: 'ESCAT, Brazzaville',
-                description: 'Mise en place d\'un controleur de domaine Active Directory pour la gestion centralisee des utilisateurs.',
-                icon: 'fa-server',
-                tags: ['Active Directory', 'Windows Server', 'Administration']
+                title: "Contrôleur de domaine Active Directory",
+                date: "Mars 2023",
+                client: "ESCAT, Brazzaville",
+                description: "Déploiement d'un environnement Active Directory pour centraliser les comptes, les stratégies et la gestion des postes.",
+                impact: "Administration centralisée des utilisateurs et politiques internes plus faciles à maintenir.",
+                tags: ["Active Directory", "Windows Server", "Administration"]
             },
             {
-                title: 'Hotspot Commercial',
-                date: 'Mai 2023',
-                client: 'NetZONE, Brazzaville',
-                description: 'Creation d\'un hotspot WiFi securise pour acces client dans un environnement commercial.',
-                icon: 'fa-broadcast-tower',
-                tags: ['WiFi', 'Hotspot', 'Securite']
+                title: "Hotspot commercial sécurisé",
+                date: "Mai 2023",
+                client: "NetZONE, Brazzaville",
+                description: "Création d'un hotspot Wi-Fi destiné aux visiteurs dans un environnement commercial avec une séparation claire des usages.",
+                impact: "Accès visiteurs mieux isolé et expérience de connexion plus lisible pour les clients.",
+                tags: ["Hotspot", "Wi-Fi", "Sécurité"]
             }
         ];
 
-        // Initialize variables
-        let canvas = null;
-        let ctx = null;
-        let nodes = [];
-        let animationId = null;
-        let mouseX = 0;
-        let mouseY = 0;
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        // DOM Ready
-        document.addEventListener('DOMContentLoaded', function() {
-            initCanvas();
+        document.addEventListener("DOMContentLoaded", () => {
+            renderServices();
+            renderExpertise();
             renderSkills();
             renderTimeline();
             renderProjects();
-            initScrollReveal();
-            initCursorGlow();
-            initNavScroll();
-            initMobileMenu();
-            initProgressBars();
+            initReveal();
+            initNavigation();
+            initContactForm();
+            initInteractiveCards();
+            initCanvas();
+            setFooterYear();
         });
 
-        // Network Background
-        function initCanvas() {
-            canvas = document.getElementById('network-bg');
-            if (!canvas) return;
-            
-            ctx = canvas.getContext('2d');
-            resizeCanvas();
-            createNodes();
-            animate();
-            
-            window.addEventListener('resize', function() {
-                resizeCanvas();
-                nodes = [];
-                createNodes();
+        function renderServices() {
+            const grid = document.getElementById("services-grid");
+            if (!grid) return;
+
+            services.forEach((service) => {
+                const article = document.createElement("article");
+                article.className = "service-card reveal";
+
+                const icon = document.createElement("span");
+                icon.className = "service-icon";
+                icon.textContent = service.icon;
+
+                const title = document.createElement("h3");
+                title.textContent = service.title;
+
+                const description = document.createElement("p");
+                description.textContent = service.description;
+
+                article.append(icon, title, description);
+                grid.appendChild(article);
             });
         }
 
-        function resizeCanvas() {
-            if (!canvas) return;
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function renderExpertise() {
+            const grid = document.getElementById("expertise-grid");
+            if (!grid) return;
 
-        function createNodes() {
-            const nodeCount = Math.floor((window.innerWidth * window.innerHeight) / 25000);
-            const count = Math.max(20, Math.min(nodeCount, 80));
-            
-            for (let i = 0; i < count; i++) {
-                nodes.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    radius: Math.random() * 2 + 1
-                });
-            }
-        }
+            expertise.forEach((item) => {
+                const article = document.createElement("article");
+                article.className = "card reveal";
 
-        function animate() {
-            if (!ctx || !canvas) return;
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Update and draw nodes
-            nodes.forEach(function(node, i) {
-                node.x += node.vx;
-                node.y += node.vy;
-                
-                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-                
-                // Draw node
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, Math.max(0.5, node.radius), 0, Math.PI * 2);
-                ctx.fillStyle = '#c9a66b';
-                ctx.fill();
-                
-                // Draw connections
-                nodes.forEach(function(otherNode, j) {
-                    if (i >= j) return;
-                    const dx = node.x - otherNode.x;
-                    const dy = node.y - otherNode.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < 150) {
-                        ctx.beginPath();
-                        ctx.moveTo(node.x, node.y);
-                        ctx.lineTo(otherNode.x, otherNode.y);
-                        const opacity = Math.max(0.01, (1 - dist / 150) * 0.15);
-                        ctx.strokeStyle = 'rgba(201, 166, 107, ' + opacity + ')';
-                        ctx.stroke();
-                    }
+                const top = document.createElement("div");
+                top.className = "card-top";
+
+                const copy = document.createElement("div");
+                const title = document.createElement("h3");
+                title.textContent = item.title;
+                title.style.fontSize = "1.35rem";
+                title.style.marginBottom = "0.55rem";
+
+                const description = document.createElement("p");
+                description.textContent = item.description;
+                copy.append(title, description);
+
+                const badge = document.createElement("div");
+                badge.className = "card-badge";
+                badge.textContent = item.code;
+                top.append(copy, badge);
+                article.appendChild(top);
+
+                const list = document.createElement("div");
+                list.className = "progress-list";
+
+                item.metrics.forEach((metric) => {
+                    const wrapper = document.createElement("div");
+                    wrapper.dataset.progress = String(metric.value);
+
+                    const head = document.createElement("div");
+                    head.className = "progress-head";
+
+                    const label = document.createElement("span");
+                    label.textContent = metric.label;
+
+                    const value = document.createElement("span");
+                    value.textContent = metric.value + "%";
+                    head.append(label, value);
+
+                    const track = document.createElement("div");
+                    track.className = "progress-track";
+
+                    const bar = document.createElement("div");
+                    bar.className = "progress-bar";
+                    track.appendChild(bar);
+
+                    wrapper.append(head, track);
+                    list.appendChild(wrapper);
                 });
+
+                article.appendChild(list);
+                grid.appendChild(article);
             });
-            
-            animationId = requestAnimationFrame(animate);
         }
 
-        // Render Skills
         function renderSkills() {
-            const container = document.getElementById('skillsContainer');
-            if (!container) return;
-            
-            skills.forEach(function(skill) {
-                const tag = document.createElement('span');
-                tag.className = 'skill-tag px-4 py-2 rounded-full border border-border text-sm text-muted cursor-default';
-                tag.textContent = skill.name;
-                container.appendChild(tag);
+            const cloud = document.getElementById("skills-cloud");
+            if (!cloud) return;
+
+            skills.forEach((skill) => {
+                const pill = document.createElement("span");
+                pill.className = "skill-pill";
+                pill.textContent = skill;
+                cloud.appendChild(pill);
             });
         }
 
-        // Render Timeline
         function renderTimeline() {
-            const container = document.getElementById('timelineContainer');
+            const container = document.getElementById("timeline");
             if (!container) return;
-            
-            timeline.forEach(function(item, index) {
-                const div = document.createElement('div');
-                div.className = 'relative pl-16 pb-12 reveal';
-                div.style.transitionDelay = (index * 0.15) + 's';
-                
-                div.innerHTML = '\
-                    <div class="timeline-dot" style="top: 4px;"></div>\
-                    <div class="bg-card rounded-xl p-6 border border-border hover:border-accent/50 transition-all">\
-                        <div class="flex items-center gap-3 mb-2">\
-                            <span class="text-accent font-display font-bold">' + item.year + '</span>\
-                            <span class="text-muted text-sm">' + item.location + '</span>\
-                        </div>\
-                        <h3 class="font-display text-lg font-semibold mb-2">' + item.title + '</h3>\
-                        <p class="text-muted text-sm">' + item.description + '</p>\
-                    </div>\
-                ';
-                
-                container.appendChild(div);
+
+            timeline.forEach((item) => {
+                const article = document.createElement("article");
+                article.className = "timeline-card reveal";
+
+                const meta = document.createElement("div");
+                meta.className = "timeline-meta";
+
+                const year = document.createElement("span");
+                year.className = "timeline-year";
+                year.textContent = item.year;
+
+                const location = document.createElement("span");
+                location.className = "timeline-location";
+                location.textContent = item.location;
+                meta.append(year, location);
+
+                const title = document.createElement("h3");
+                title.textContent = item.title;
+                title.style.fontSize = "1.2rem";
+                title.style.marginBottom = "0.5rem";
+
+                const description = document.createElement("p");
+                description.textContent = item.description;
+
+                article.append(meta, title, description);
+
+                if (item.link) {
+                    const link = document.createElement("a");
+                    link.className = "button-ghost";
+                    link.href = item.link;
+                    link.target = "_blank";
+                    link.rel = "noopener";
+                    link.style.marginTop = "1rem";
+                    link.textContent = item.linkLabel || "Voir la certification";
+                    article.appendChild(link);
+                }
+
+                container.appendChild(article);
             });
         }
 
-        // Render Projects
         function renderProjects() {
-            const container = document.getElementById('projectsContainer');
-            if (!container) return;
-            
-            projects.forEach(function(project, index) {
-                const div = document.createElement('div');
-                div.className = 'project-card relative bg-card rounded-2xl p-8 border border-border reveal';
-                div.style.transitionDelay = (index * 0.1) + 's';
-                
-                let tagsHtml = '';
-                project.tags.forEach(function(tag) {
-                    tagsHtml += '<span class="px-3 py-1 rounded-full text-xs bg-surface text-muted">' + tag + '</span>';
+            const grid = document.getElementById("projects-grid");
+            if (!grid) return;
+
+            projects.forEach((project) => {
+                const article = document.createElement("article");
+                article.className = "project-card reveal";
+
+                const meta = document.createElement("div");
+                meta.className = "project-meta";
+
+                const client = document.createElement("div");
+                client.className = "project-client";
+                client.textContent = project.client;
+
+                const date = document.createElement("span");
+                date.style.color = "var(--muted)";
+                date.style.fontSize = "0.88rem";
+                date.textContent = project.date;
+                meta.append(client, date);
+
+                const title = document.createElement("h3");
+                title.textContent = project.title;
+                title.style.fontSize = "1.3rem";
+
+                const description = document.createElement("p");
+                description.textContent = project.description;
+
+                const impact = document.createElement("div");
+                impact.className = "project-impact";
+
+                const impactLabel = document.createElement("span");
+                impactLabel.textContent = "Impact";
+
+                const impactText = document.createElement("p");
+                impactText.textContent = project.impact;
+                impact.append(impactLabel, impactText);
+
+                const tags = document.createElement("div");
+                tags.className = "tag-row";
+
+                project.tags.forEach((tagText) => {
+                    const tag = document.createElement("span");
+                    tag.className = "tag";
+                    tag.textContent = tagText;
+                    tags.appendChild(tag);
                 });
-                
-                div.innerHTML = '\
-                    <div class="flex items-center justify-between mb-5">\
-                        <div class="w-11 h-11 rounded-xl bg-accent/10 border border-border flex items-center justify-center">\
-                            <i class="fas ' + project.icon + ' text-accent"></i>\
-                        </div>\
-                        <span class="text-sm text-muted">' + project.date + '</span>\
-                    </div>\
-                    <h3 class="font-display text-xl font-semibold mb-2">' + project.title + '</h3>\
-                    <p class="text-network text-sm mb-4">' + project.client + '</p>\
-                    <p class="text-muted text-sm mb-6">' + project.description + '</p>\
-                    <div class="flex flex-wrap gap-2">' + tagsHtml + '</div>\
-                ';
-                
-                container.appendChild(div);
+
+                article.append(meta, title, description, impact, tags);
+                grid.appendChild(article);
             });
         }
 
-        // Scroll Reveal
-        function initScrollReveal() {
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-            
-            document.querySelectorAll('.reveal, .stagger-reveal').forEach(function(el) {
-                observer.observe(el);
-            });
-        }
+        function initReveal() {
+            const elements = document.querySelectorAll(".reveal");
 
-        // Cursor Glow
-        function initCursorGlow() {
-            const glow = document.getElementById('cursorGlow');
-            if (!glow || window.matchMedia('(pointer: coarse)').matches) {
-                if (glow) glow.style.display = 'none';
+            if (reducedMotion || !("IntersectionObserver" in window)) {
+                elements.forEach((element) => {
+                    element.classList.add("is-visible");
+                });
+                fillProgressBars();
                 return;
             }
-            
-            document.addEventListener('mousemove', function(e) {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                glow.style.left = mouseX + 'px';
-                glow.style.top = mouseY + 'px';
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+
+                    entry.target.classList.add("is-visible");
+
+                    if (entry.target.querySelector(".progress-bar")) {
+                        animateCardProgress(entry.target);
+                    }
+
+                    obs.unobserve(entry.target);
+                });
+            }, {
+                threshold: 0.18,
+                rootMargin: "0px 0px -60px 0px"
             });
-            
-            document.addEventListener('mouseleave', function() {
-                glow.style.opacity = '0';
-            });
-            
-            document.addEventListener('mouseenter', function() {
-                glow.style.opacity = '1';
+
+            elements.forEach((element) => observer.observe(element));
+        }
+
+        function fillProgressBars() {
+            document.querySelectorAll("[data-progress]").forEach((wrapper) => {
+                const bar = wrapper.querySelector(".progress-bar");
+                if (!bar) return;
+                bar.style.width = wrapper.dataset.progress + "%";
             });
         }
 
-        // Nav Scroll
-        function initNavScroll() {
-            const nav = document.getElementById('navbar');
-            if (!nav) return;
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    nav.classList.add('nav-scrolled');
-                } else {
-                    nav.classList.remove('nav-scrolled');
-                }
-            });
-        }
+        function animateCardProgress(card) {
+            card.querySelectorAll("[data-progress]").forEach((wrapper) => {
+                const bar = wrapper.querySelector(".progress-bar");
+                if (!bar) return;
 
-        // Mobile Menu
-        function initMobileMenu() {
-            const btn = document.getElementById('mobileMenuBtn');
-            const menu = document.getElementById('mobileMenu');
-            if (!btn || !menu) return;
-            
-            btn.addEventListener('click', function() {
-                menu.classList.toggle('hidden');
-            });
-            
-            menu.querySelectorAll('a').forEach(function(link) {
-                link.addEventListener('click', function() {
-                    menu.classList.add('hidden');
+                requestAnimationFrame(() => {
+                    bar.style.width = wrapper.dataset.progress + "%";
                 });
             });
         }
 
-        // Progress Bars Animation
-        function initProgressBars() {
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        const fills = entry.target.querySelectorAll('.progress-fill');
-                        fills.forEach(function(fill) {
-                            const progress = fill.style.getPropertyValue('--progress');
-                            if (progress) {
-                                fill.style.transform = 'scaleX(' + (parseFloat(progress) / 100) + ')';
-                            }
-                        });
+        function initNavigation() {
+            const header = document.getElementById("site-header");
+            const button = document.getElementById("menu-toggle");
+            const menu = document.getElementById("mobile-menu");
+
+            const toggleScrolled = () => {
+                header.classList.toggle("is-scrolled", window.scrollY > 24);
+            };
+
+            toggleScrolled();
+            window.addEventListener("scroll", toggleScrolled, { passive: true });
+
+            if (!button || !menu) return;
+
+            const closeMenu = () => {
+                button.setAttribute("aria-expanded", "false");
+                menu.setAttribute("aria-hidden", "true");
+            };
+
+            button.addEventListener("click", () => {
+                const expanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", String(!expanded));
+                menu.setAttribute("aria-hidden", String(expanded));
+            });
+
+            menu.querySelectorAll("a").forEach((link) => {
+                link.addEventListener("click", closeMenu);
+            });
+
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 760) {
+                    closeMenu();
+                }
+            });
+        }
+
+        function buildContactMessage() {
+            const form = document.getElementById("contact-form");
+            if (!form) return "";
+
+            const data = new FormData(form);
+            const name = String(data.get("name") || "").trim();
+            const email = String(data.get("email") || "").trim();
+            const service = String(data.get("service") || "").trim();
+            const urgency = String(data.get("urgency") || "").trim();
+            const message = String(data.get("message") || "").trim();
+
+            return [
+                "Bonjour Rhudy,",
+                "",
+                `Je vous contacte pour: ${service || "une intervention technique"}.`,
+                `Nom / organisation: ${name || "à préciser"}`,
+                `Email: ${email || "à préciser"}`,
+                `Urgence: ${urgency || "à préciser"}`,
+                "",
+                "Contexte:",
+                message || "à préciser",
+                "",
+                "Merci de me proposer la suite."
+            ].join("\n");
+        }
+
+        function initContactForm() {
+            const form = document.getElementById("contact-form");
+            const status = document.getElementById("form-status");
+            const whatsappButton = document.getElementById("whatsapp-form-button");
+
+            if (!form) return;
+
+            const setStatus = (message) => {
+                if (status) status.textContent = message;
+            };
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                if (!form.reportValidity()) return;
+
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalLabel = submitButton ? submitButton.textContent : "";
+
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.textContent = "Envoi en cours...";
+                }
+
+                setStatus("Envoi de la demande...");
+
+                try {
+                    const formData = new FormData(form);
+                    formData.append("message_resume", buildContactMessage());
+
+                    const response = await fetch(form.action, {
+                        method: "POST",
+                        body: formData,
+                        headers: { Accept: "application/json" }
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok || !result.success) {
+                        throw new Error(result.message || "Envoi impossible pour le moment.");
+                    }
+
+                    form.reset();
+                    setStatus("Demande envoyée. Rhudy la recevra directement par email.");
+                } catch (error) {
+                    setStatus("L'envoi a échoué. Essayez WhatsApp ou écrivez à harielrhudy@gmail.com.");
+                } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalLabel;
+                    }
+                }
+            });
+
+            if (whatsappButton) {
+                whatsappButton.addEventListener("click", () => {
+                    if (!form.reportValidity()) return;
+
+                    const text = encodeURIComponent(buildContactMessage());
+                    window.open(`https://wa.me/242066414608?text=${text}`, "_blank", "noopener");
+                    setStatus("Message WhatsApp préparé dans un nouvel onglet.");
+                });
+            }
+        }
+
+        function initInteractiveCards() {
+            if (reducedMotion || window.matchMedia("(pointer: coarse)").matches) return;
+
+            const cards = document.querySelectorAll(".service-card, .project-card, .process-card, .portrait-panel");
+
+            cards.forEach((card) => {
+                card.addEventListener("pointermove", (event) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = (event.clientX - rect.left) / rect.width - 0.5;
+                    const y = (event.clientY - rect.top) / rect.height - 0.5;
+                    card.style.transform = `perspective(900px) rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 5).toFixed(2)}deg) translateY(-4px)`;
+                });
+
+                card.addEventListener("pointerleave", () => {
+                    card.style.transform = "";
+                });
+            });
+        }
+
+        function initCanvas() {
+            const canvas = document.getElementById("network-bg");
+
+            if (!canvas || reducedMotion) {
+                if (canvas) canvas.style.display = "none";
+                return;
+            }
+
+            const context = canvas.getContext("2d");
+            if (!context) return;
+
+            let width = 0;
+            let height = 0;
+            let animationFrame = 0;
+            let nodes = [];
+
+            const resize = () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                const count = Math.max(16, Math.min(42, Math.floor((width * height) / 42000)));
+
+                nodes = Array.from({ length: count }, () => ({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.28,
+                    vy: (Math.random() - 0.5) * 0.28,
+                    radius: Math.random() * 1.8 + 0.8
+                }));
+            };
+
+            const draw = () => {
+                context.clearRect(0, 0, width, height);
+
+                nodes.forEach((node, index) => {
+                    node.x += node.vx;
+                    node.y += node.vy;
+
+                    if (node.x < 0 || node.x > width) node.vx *= -1;
+                    if (node.y < 0 || node.y > height) node.vy *= -1;
+
+                    context.beginPath();
+                    context.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    context.fillStyle = "rgba(242, 185, 95, 0.72)";
+                    context.fill();
+
+                    for (let i = index + 1; i < nodes.length; i += 1) {
+                        const other = nodes[i];
+                        const dx = node.x - other.x;
+                        const dy = node.y - other.y;
+                        const distance = Math.hypot(dx, dy);
+
+                        if (distance > 160) continue;
+
+                        const alpha = (1 - distance / 160) * 0.18;
+                        context.beginPath();
+                        context.moveTo(node.x, node.y);
+                        context.lineTo(other.x, other.y);
+                        context.strokeStyle = `rgba(111, 209, 194, ${alpha})`;
+                        context.lineWidth = 1;
+                        context.stroke();
                     }
                 });
-            }, { threshold: 0.5 });
-            
-            document.querySelectorAll('.progress-bar').forEach(function(bar) {
-                observer.observe(bar.parentElement);
-            });
+
+                animationFrame = window.requestAnimationFrame(draw);
+            };
+
+            resize();
+            draw();
+
+            window.addEventListener("resize", resize, { passive: true });
+            window.addEventListener("beforeunload", () => {
+                window.cancelAnimationFrame(animationFrame);
+            }, { once: true });
         }
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
+        function setFooterYear() {
+            const footer = document.getElementById("footer-copy");
+            if (!footer) return;
+            footer.textContent = `${new Date().getFullYear()} Rhudy Hariel Yocka`;
+        }
     </script>
 </body>
 </html>
